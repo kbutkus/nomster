@@ -2,7 +2,7 @@
 
 <% @places.each do |place| %>
   <div class="booyah-box col-10 offset-1">
-    <h1><%= place.name %></h1>
+    <h1><%= link_to place.name, place_path(place) %></h1><br />
     <i><%= place.address %></i><br /><br />
     <p><%= place.description %></p><br />
 
@@ -12,8 +12,13 @@
   </div>
 
 <% end %>
-<%= will_paginate @places,inner_window: 2, outer_window: 0 %>
+<%= will_paginate @places %>
 
 <div class="pagination">
+  <%= form_tag(places_path, :method => "Get") do%>
+    <%=label_tag(:per_page,'Items per page:') %>
+    <%= text_field_tag(:per_page , params[:per_page]) %>
+    <%= button_to(:submit, places_path) %>
+  <% end %>
 </div>
 
