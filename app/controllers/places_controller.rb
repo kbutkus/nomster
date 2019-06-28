@@ -10,7 +10,7 @@ class PlacesController < ApplicationController
   end
 
   def create
-    current_user.places.create(place_params)
+    @place = current_user.places.create(place_params)
     if @place.valid?
       flash[:error] = '<strong>Could not save</strong> the data you entered is invalid.'
     end
@@ -61,3 +61,4 @@ class PlacesController < ApplicationController
   def place_params
     params.require(:place).permit(:name, :description, :address)
   end
+end
