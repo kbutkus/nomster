@@ -12,6 +12,8 @@ class PlacesController < ApplicationController
   def create
     current_user.places.create(place_params)
     if @place.valid?
+      flash[:error] = '<strong>Could not save</strong> the data you entered is invalid.'
+    end
       redirect_to root_path
     else
       render :new, status: :unprocessable_entity
@@ -59,5 +61,3 @@ class PlacesController < ApplicationController
   def place_params
     params.require(:place).permit(:name, :description, :address)
   end
-
-end
